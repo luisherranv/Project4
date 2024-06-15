@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Music Genre Prediction</title>
+</head>
+<body>
+    <h1>Music Genre Prediction</h1>
+    <form action="/predict" method="POST">
+        <label for="genre">Genre:</label>
+        <input type="text" id="genre" name="genre" required><br><br>
+        <label for="danceability">Danceability:</label>
+        <input type="text" id="danceability" name="danceability" required><br><br>
+        <label for="energy">Energy:</label>
+        <input type="text" id="energy" name="energy" required><br><br>
+        <label for="key">Key:</label>
+        <input type="text" id="key" name="key" required><br><br>
+        <label for="loudness">Loudness:</label>
+        <input type="text" id="loudness" name="loudness" required><br><br>
+        <label for="speechiness">Speechiness:</label>
+        <input type="text" id="speechiness" name="speechiness" required><br><br>
+        <label for="acousticness">Acousticness:</label>
+        <input type="text" id="acousticness" name="acousticness" required><br><br>
+        <label for="instrumentalness">Instrumentalness:</label>
+        <input type="text" id="instrumentalness" name="instrumentalness" required><br><br>
+        <label for="liveness">Liveness:</label>
+        <input type="text" id="liveness" name="liveness" required><br><br>
+        <label for="valence">Valence:</label>
+        <input type="text" id="valence" name="valence" required><br><br>
+        <label for="tempo">Tempo:</label>
+        <input type="text" id="tempo" name="tempo" required><br><br>
+        <label for="time_signature">Time Signature:</label>
+        <input type="text" id="time_signature" name="time_signature" required><br><br>
+        <label for="duration_ms">Duration (ms):</label>
+        <input type="text" id="duration_ms" name="duration_ms" required><br><br>
+        <label for="artist_popularity">Artist Popularity:</label>
+        <input type="text" id="artist_popularity" name="artist_popularity" required><br><br>
+        <button type="submit">Predict</button>
+    </form>
+
+    <div class="output">
+        {% if prediction_text %}
+            <h3>{{ prediction_text }}</h3>
+            <ul>
+                {% for i, prob in enumerate(probabilities) %}
+                    <li>Class {{ i + 1 }} Probability: {{ prob }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    </div>
+</body>
+</html>
