@@ -4,50 +4,140 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Song Popularity Prediction</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #0b5300;
+            color: white;
+        }
+        .center-top {
+            position: absolute;
+            top: 10px; 
+            left: 400px;
+            width: 800px; 
+            padding: 20px;
+            box-sizing: border-box;
+            display: flex;
+            align-items: center; 
+            justify-content: flex-start; 
+        }
+        .center-top h1 {
+            margin-left: 20px;
+        }
+        .center-top img {
+            max-height: 100px;
+        }
+        .container {
+            width: 80%;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-top: 100px;
+        }
+        .form-container {
+            width: 45%;
+        }
+        .output-container {
+            width: 45%;
+            text-align: center;
+        }
+        .output {
+            margin-top: 20px;
+            text-align: center;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+            text-align: center;
+            margin: 0;
+        }
+        li {
+            margin-bottom: 5px;
+        }
+        .output img {
+            display: block;
+            margin: 0; 
+            margin-top: 20px;
+        }
+        .large-button {
+            font-size: 20px; 
+            padding: 10px 20px; 
+            font-weight: bold;
+            color:#0b5300;
+        }
+    </style>
 </head>
-<body>
-    <h1>Song Popularity Prediction</h1>
-    <form action="/predict" method="POST">
-        <label for="genre">Genre:</label>
-        <input type="text" id="genre" name="genre" required><br><br>
-        <label for="danceability">Danceability:</label>
-        <input type="text" id="danceability" name="danceability" required><br><br>
-        <label for="energy">Energy:</label>
-        <input type="text" id="energy" name="energy" required><br><br>
-        <label for="key">Key:</label>
-        <input type="text" id="key" name="key" required><br><br>
-        <label for="loudness">Loudness:</label>
-        <input type="text" id="loudness" name="loudness" required><br><br>
-        <label for="speechiness">Speechiness:</label>
-        <input type="text" id="speechiness" name="speechiness" required><br><br>
-        <label for="acousticness">Acousticness:</label>
-        <input type="text" id="acousticness" name="acousticness" required><br><br>
-        <label for="instrumentalness">Instrumentalness:</label>
-        <input type="text" id="instrumentalness" name="instrumentalness" required><br><br>
-        <label for="liveness">Liveness:</label>
-        <input type="text" id="liveness" name="liveness" required><br><br>
-        <label for="valence">Valence:</label>
-        <input type="text" id="valence" name="valence" required><br><br>
-        <label for="tempo">Tempo:</label>
-        <input type="text" id="tempo" name="tempo" required><br><br>
-        <label for="time_signature">Time Signature:</label>
-        <input type="text" id="time_signature" name="time_signature" required><br><br>
-        <label for="duration_ms">Duration (ms):</label>
-        <input type="text" id="duration_ms" name="duration_ms" required><br><br>
-        <label for="artist_popularity">Artist Popularity:</label>
-        <input type="text" id="artist_popularity" name="artist_popularity" required><br><br>
-        <button type="submit">Predict</button>
-    </form>
 
-    <div class="output">
-        {% if prediction_text %}
-            <h3>{{ prediction_text }}</h3>
-            <ul>
-                {% for i, prob in enumerate(probabilities) %}
-                    <li>Class {{ i + 1 }} Probability: {{ prob }}</li>
-                {% endfor %}
-            </ul>
-        {% endif %}
+<body>
+    <div class="center-top">
+        <div class="top-image">
+            <img src="https://cdn.icon-icons.com/icons2/3041/PNG/512/spotify_logo_icon_189218.png" alt="Logo" style="height: 100px;"> <!-- Adjust height as needed -->
+        </div>
+        <div class="top-text">
+            <h1>Song Popularity Prediction Tool</h1>
+            <p>Predict the popularity of your favorite songs using machine learning based on Spotify Data!</p>
+        </div>
+    </div>
+    <div class="container">
+        <div class="form-container">
+            <h2>Song Audio Feautures</h2>
+
+            <form action="/predict" method="POST">
+                <label for="genre">Genre:</label>
+                <input type="text" id="genre" name="genre" required><br><br>
+                <label for="danceability">Danceability (0-1):</label>
+                <input type="text" id="danceability" name="danceability" required><br><br>
+                <label for="energy">Energy (0-1):</label>
+                <input type="text" id="energy" name="energy" required><br><br>
+                <label for="key">Key (-1 to -11):</label>
+                <input type="text" id="key" name="key" required><br><br>
+                <label for="loudness">Loudness (-60 to 0):</label>
+                <input type="text" id="loudness" name="loudness" required><br><br>
+                <label for="mode">Mode (Major '1'/Minor '0'):</label>
+                <input type="text" id="mode" name="mode" required><br><br>
+                <label for="speechiness">Speechiness (0-1):</label>
+                <input type="text" id="speechiness" name="speechiness" required><br><br>
+                <label for="acousticness">Acousticness (0-1):</label>
+                <input type="text" id="acousticness" name="acousticness" required><br><br>
+                <label for="instrumentalness">Instrumentalness (0-1):</label>
+                <input type="text" id="instrumentalness" name="instrumentalness" required><br><br>
+                <label for="liveness">Liveness (0-1):</label>
+                <input type="text" id="liveness" name="liveness" required><br><br>
+                <label for="valence">Valence (0-1):</label>
+                <input type="text" id="valence" name="valence" required><br><br>
+                <label for="tempo">Tempo (tracks per min):</label>
+                <input type="text" id="tempo" name="tempo" required><br><br>
+                <label for="time_signature">Time Signature (3-7):</label>
+                <input type="text" id="time_signature" name="time_signature" required><br><br>
+                <label for="duration_ms">Duration (ms):</label>
+                <input type="text" id="duration_ms" name="duration_ms" required><br><br>
+                <label for="artist_popularity">Artist Popularity (0-100):</label>
+                <input type="text" id="artist_popularity" name="artist_popularity" required><br><br>
+                <button type="submit" class="large-button">Predict</button>
+            </form>
+        </div>
+        
+        <div class="output-container">
+            <div class="output">
+                {% if prediction_text %}
+                    <h2>{{ prediction_text }}</h2>
+                    <ul>
+                        <!-- {% for i, prob in enumerate(probabilities) %}
+                            <li>Popularity Q{{ i + 1 }} Probability: {{ prob | round(2)}}</li>
+                        {% endfor %} -->
+                        {% for i in range(probabilities|length) %}
+                            <li>Popularity Range ({{ class_labels[i] }}) Probability: {{ probabilities[i] | round(2) }}</li>
+                        {% endfor %}
+                    </ul>
+                    <img src="data:image/png;base64,{{ plot_base64 }}" alt="Probability of Popularity">
+                {% endif %}
+            </div>
+        </div>
     </div>
 </body>
 </html>

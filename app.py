@@ -4,6 +4,9 @@ import numpy as np
 import pandas as pd
 import joblib
 import warnings
+import matplotlib.pyplot as plt
+from io import BytesIO
+import base64
 
 
 warnings.filterwarnings('ignore')
@@ -15,6 +18,28 @@ model = tf.keras.models.load_model('SpotifyModelOptimized_5.h5')
 scaler = joblib.load('scaler_5.pkl')
 with open('training_columns 2.txt', 'r') as f:
     training_columns = [line.strip() for line in f]
+
+
+def barplot(probabilites):
+    labels =['0-25', '25-50', '50-75', '75-100']
+    popularity = probabilites
+
+    colors = ['red', 'orange', 'yellow', 'green']
+
+    plt.figure(figsize=(6, 4))
+    plt.bar(labels, popularity, width=0.95, color=colors)
+    plt.xlabel('Popularity Range')
+    plt.ylabel('Probability')
+    plt.title('Porbability of Popularity')
+
+    buffer = BytesIO()
+    plt.savefig(buffer, format='png')
+    buffer.seek(0)
+    plot_base64 = base64.b64encode(buffer.getvalue()).decode('utf-8')
+
+    plt.close()
+
+    return plot_base64
 
 @app.route('/')
 def home():
@@ -28,6 +53,7 @@ def predict():
         energy = float(request.form['energy'])
         key = float(request.form['key'])
         loudness = float(request.form['loudness'])
+        mode = float(request.form['mode'])
         speechiness = float(request.form['speechiness'])
         acousticness = float(request.form['acousticness'])
         instrumentalness = float(request.form['instrumentalness'])
@@ -44,6 +70,7 @@ def predict():
                 'energy': [energy],
                 'key': [key],
                 'loudness': [loudness],
+                'mode': [mode],
                 'speechiness': [speechiness],
                 'acousticness': [acousticness],
                 'instrumentalness': [instrumentalness],
@@ -64,21 +91,23 @@ def predict():
         prediction = model.predict(scaled_input_data)
         probabilities = prediction[0]
         chosen_class = np.argmax(probabilities)
-        class_labels = ['1stQ', '2ndQ', '3rdQ', '4thQ'] 
+        class_labels = ['0-25', '25-50', '50-75', '75-100'] 
+        plot_base64 = barplot(probabilities)
+        pred_class = class_labels[chosen_class]
+
+
+
         
         return render_template('index.html', 
                             probabilities=probabilities,
+                            class_labels = class_labels,
                             chosen_class=class_labels[chosen_class],
-                            prediction_text=f'Chosen Class: {class_labels[chosen_class]}',
-                            enumerate=enumerate)
+                            prediction_text=f'Your song is predicted to have a popularity between {class_labels[chosen_class]}',
+                            enumerate=enumerate,
+                            plot_base64=plot_base64)
     return 'Method not allowed', 405
 
 if __name__ == '__main__':
     # app.run(host='0.0.0.0', port=8080)
     app.run(debug=True, port=5001)
-
-
-
-
-
 

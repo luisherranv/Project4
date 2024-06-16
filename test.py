@@ -2,6 +2,7 @@ import pandas as pd
 import numpy as np
 import tensorflow as tf
 import joblib
+import matplotlib as plt
 
 # Load the model and scaler
 model = tf.keras.models.load_model('SpotifyModelOptimized_5.h5')
@@ -34,3 +35,13 @@ for i, probabilities in enumerate(results):
     print(f"Probabilities: {probabilities}")
     print(f"Chosen Class: {class_labels[chosen_class]}")
     print()
+
+
+labels =['0-25', '25-50', '50-75', '75-100']
+popularity = probabilities
+print(popularity)
+plt.bar(labels, popularity)
+plt.xlabel('Popularity Range')
+plt.ylabel('Probability')
+plt.title('Porbability of Popularity')
+plt.show()
