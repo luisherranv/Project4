@@ -1,4 +1,5 @@
 # Project 4 - Neural Network Model for Song Popularity Prediction using Spotify Data 
+**Author**: Luis Herran
 
   
 ## Introduction
@@ -85,7 +86,14 @@ templates/[`index.html`](https://github.com/luisherranv/Project4/blob/main/templ
 
 [`training_columns 2.txt`](https://github.com/luisherranv/Project4/blob/main/training_columns%202.txt): Columns in the Training Data (including dummies)
 
+## References
+[Kaggle API](https://drive.google.com/file/d/1Q1UZbj4qXImimLv91y4wkLKFnJ5YHnuR/view?usp=share_link)  
 
+[Spotipy API](https://spotipy.readthedocs.io/en/2.24.0/)  
+
+[Kaggle Dataset "Spotify_1Million_Tracks" by Amitansh Joshi](https://www.kaggle.com/datasets/amitanshjoshi/spotify-1million-tracks#)  
+
+Further help to develop this model and app was obtained from classroom material, and troubleshooting with AI platforms (ChatGPT, Claude)
 
 
 
