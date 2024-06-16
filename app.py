@@ -13,13 +13,13 @@ warnings.filterwarnings('ignore')
 
 app = Flask(__name__, template_folder='templates')
 
-# Load the model (adjust the path as necessary)
+# Load the model, scaler and columns
 model = tf.keras.models.load_model('SpotifyModelOptimized_5.h5')
 scaler = joblib.load('scaler_5.pkl')
 with open('training_columns 2.txt', 'r') as f:
     training_columns = [line.strip() for line in f]
 
-
+# Funtion for bar plot
 def barplot(probabilites):
     labels =['0-25', '25-50', '50-75', '75-100']
     popularity = probabilites
@@ -108,6 +108,5 @@ def predict():
     return 'Method not allowed', 405
 
 if __name__ == '__main__':
-    # app.run(host='0.0.0.0', port=8080)
     app.run(debug=True, port=5001)
 
