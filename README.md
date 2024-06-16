@@ -65,6 +65,25 @@ As is, the model is able to predict with a 78.4% accuracy the pobabilities of a 
 Further data however can be collected to increase the accuracy. For instance, another important meta-data that impacts a song's popularity is the lyrics. Potentially, by understanding the messaging (love, breakup, friendship, political, etc) or even most used words in the lyrics, could potentially help overcome this gap. Other areas that can increase accuracy is the artists' efforts in marketing said song, for instance, how much is it played on the radio, is the artist on tour, is this a TikToc song?.
 
 ## Repository Files Index
+[`SpotifyModelOptimized_5.h5`](https://github.com/luisherranv/Project4/blob/main/SpotifyModelOptimized_5.h5): Tensorflow Model
+
+  
+[`SpotifyModelOptimized_5.ipynb`](https://github.com/luisherranv/Project4/blob/main/SpotifyModelOptimized_5.ipynb): Optimized Model Training Notebook
+
+  
+[`Spotipy.ipynb`](https://github.com/luisherranv/Project4/blob/main/Spotipy.ipynb): Artist Popularity Data Pull Notebook
+
+  
+[`app.py`](https://github.com/luisherranv/Project4/blob/main/app.py): Python File for App
+
+  
+templates/[`index.html`](https://github.com/luisherranv/Project4/blob/main/templates/index.html): HTML File for the App
+
+
+[`scaler_5.pkl`](https://github.com/luisherranv/Project4/blob/main/scaler_5.pkl): Model's Scaler File to Scale Input Data
+
+
+[`training_columns 2.txt`](https://github.com/luisherranv/Project4/blob/main/training_columns%202.txt): Columns in the Training Data (including dummies)
 
 
 
